@@ -25,10 +25,18 @@ namespace UWPGestionSalles
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
+        GstBdd bdd;
+        Salle laSalle;
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            bdd = new GstBdd();
+            lstManifs.ItemsSource = bdd.GetAllManifestations();
+            lstTarifs.ItemsSource = bdd.GetAllTarifs();
         }
 
         private async void btnReserver_Click(object sender, RoutedEventArgs e)
@@ -36,14 +44,15 @@ namespace UWPGestionSalles
             
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void lstManifs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if (lstManifs.SelectedItem != null)
+            {
+                
+               
+                gvPlaces.ItemsSource = bdd.GetAllPlacesByIdManifestation((lstManifs.SelectedItem as Manifestation).IdManif, (lstManifs.SelectedItem as Manifestation).LaSalle.IdSalle);
+                //txtNumSalle.Text = laSalle.IdSalle;
+            }
         }
 
         private async void gvPlaces_SelectionChanged(object sender, SelectionChangedEventArgs e)
