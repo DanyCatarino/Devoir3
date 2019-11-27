@@ -13,7 +13,7 @@ namespace GestionnaireBDD
 
         public GstBdd()
         {
-            string driver = "server=localhost;user id=root;password=;database=gestionsalles";
+            string driver = "server=localhost;user id=root;password=;database=reservation";
             cnx = new MySqlConnection(driver);
             cnx.Open();
         }
